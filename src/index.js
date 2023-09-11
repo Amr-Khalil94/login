@@ -1,17 +1,57 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+//react dom
+import ReactDOM from "react-dom/client";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+//router dom v6
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+//confg
+import reportWebVitals from "./reportWebVitals";
+
+//redux
+import { Provider } from "react-redux";
+import store from "./Store";
+
+//persist
+import { PersistGate } from "redux-persist/integration/react";
+
+// Bootstrap Bundle JS
+import "bootstrap/dist/js/bootstrap.bundle.min";
+
+// Bootstrap Bundle JS
+import "bootstrap/dist/css/bootstrap.min.css";
+
+//style
+import "./index.css";
+
+//component - Login
+import Login from "./Components/Login/login";
+
+//component - Main page
+import MainPage from "./Components/Login/login";
+
+//routing
+const routes = createBrowserRouter([
+  {
+    path: "/main_page",
+    element: <MainPage />,
+  },
+  {
+    path: "login",
+    element: <Login />,
+  },
+]);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Provider store={store}>
+    <RouterProvider router={routes} />
+  </Provider>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// root.render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>
+// );
+
 reportWebVitals();
