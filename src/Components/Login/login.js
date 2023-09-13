@@ -27,25 +27,6 @@ import "./styles/login.css";
 //assets
 import AKLogo from "../../assets/AK.svg";
 
-// function Copyright(props) {
-//   return (
-//     <Typography
-//       variant="body2"
-//       color="text.secondary"
-//       align="center"
-//       {...props}
-//     >
-//       <Link
-//         color="inherit"
-//         href="https://www.linkedin.com/in/amr-khalil-reactjs/"
-//       >
-//         Amr Khalil
-//       </Link>
-//     </Typography>
-//   );
-// }
-
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default () => {
@@ -64,7 +45,7 @@ export default () => {
   console.log(formik.errors);
 
   return (
-    <ThemeProvider theme={defaultTheme} className="login-parent">
+    <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
@@ -102,7 +83,7 @@ export default () => {
               Sign in
             </Typography>
 
-            <form onSubmit={formik.handleSubmit}>
+            <form onSubmit={formik.handleSubmit} className="login-parent">
               <TextField
                 helperText={
                   formik.touched.email &&
