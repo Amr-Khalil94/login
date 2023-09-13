@@ -1,5 +1,11 @@
 import React from "react";
 
+//formik
+import { useFormik } from "formik";
+
+//yup validation schema
+import schema from "./loginValidation";
+
 //mui
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -15,43 +21,50 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+//styles
+import "./styles/login.css";
+
 //assets
 import AKLogo from "../../assets/AK.svg";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      <Link
-        color="inherit"
-        href="https://www.linkedin.com/in/amr-khalil-reactjs/"
-      >
-        Amr Khalil
-      </Link>
-    </Typography>
-  );
-}
+// function Copyright(props) {
+//   return (
+//     <Typography
+//       variant="body2"
+//       color="text.secondary"
+//       align="center"
+//       {...props}
+//     >
+//       <Link
+//         color="inherit"
+//         href="https://www.linkedin.com/in/amr-khalil-reactjs/"
+//       >
+//         Amr Khalil
+//       </Link>
+//     </Typography>
+//   );
+// }
 
 // TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
-export default function SignInSide() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+export default () => {
+  //formik
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: schema,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+
+  console.log(formik.errors);
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={defaultTheme} className="login-parent">
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
@@ -83,37 +96,42 @@ export default function SignInSide() {
           >
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <img src={AKLogo} />
-              {/* <LockOutlinedIcon /> */}
             </Avatar>
 
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 1 }}
-            >
+
+            <form onSubmit={formik.handleSubmit}>
               <TextField
+                helperText={
+                  formik.touched.email &&
+                  formik.errors.email &&
+                  formik.errors.email
+                }
                 margin="normal"
-                required
                 fullWidth
                 id="email"
                 label="Email Address"
                 name="email"
                 autoComplete="email"
                 autoFocus
+                onChange={formik.handleChange}
               />
               <TextField
+                helperText={
+                  formik.touched.password &&
+                  formik.errors.password &&
+                  formik.errors.password
+                }
                 margin="normal"
-                required
                 fullWidth
                 name="password"
                 label="Password"
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={formik.handleChange}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -127,6 +145,7 @@ export default function SignInSide() {
               >
                 Sign In
               </Button>
+
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
@@ -139,11 +158,25 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
               </Grid>
-              <Copyright sx={{ mt: 5 }} />
-            </Box>
+
+              <Typography
+                className="mt-5"
+                variant="body2"
+                color="text.secondary"
+                align="center"
+              >
+                <Link
+                  target="_blank"
+                  color="inherit"
+                  href="https://www.linkedin.com/in/amr-khalil-reactjs/"
+                >
+                  Amr Khalil
+                </Link>
+              </Typography>
+            </form>
           </Box>
         </Grid>
       </Grid>
     </ThemeProvider>
   );
-}
+};
