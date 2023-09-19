@@ -4,7 +4,7 @@ import * as Yup from "yup";
 const passwordRequrements = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
 
 export default Yup.object({
-  email: Yup.string().required(),
+  email: Yup.string().email(),
 
   password: Yup.string()
     .required()

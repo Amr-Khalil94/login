@@ -6,6 +6,10 @@ import { useFormik } from "formik";
 //yup validation schema
 import schema from "./loginValidation";
 
+//redux
+import { login } from "../../Store/loginSlice"
+import { useDispatch, useSelector } from "react-redux";
+
 //mui
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -30,6 +34,9 @@ import AKLogo from "../../assets/AK.svg";
 const defaultTheme = createTheme();
 
 export default () => {
+  //redux
+  const dispatch = useDispatch();
+  const loginState = useSelector((state) => state.login);
   //formik
   const formik = useFormik({
     initialValues: {
@@ -38,6 +45,7 @@ export default () => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
+      dispatch(login(values))
       console.log(values);
     },
   });
