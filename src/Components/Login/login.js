@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import schema from "./loginValidation";
 
 //redux
-import { login } from "../../Store/loginSlice"
+import { login, loginThunk } from "../../Store/loginSlice"
 import { useDispatch, useSelector } from "react-redux";
 
 //mui
@@ -43,9 +43,9 @@ export default () => {
       email: "",
       password: "",
     },
-    validationSchema: schema,
+    // validationSchema: schema,
     onSubmit: (values) => {
-      dispatch(login(values))
+      dispatch(loginThunk({ email: values.email, password: values.password }))
       console.log(values);
     },
   });
