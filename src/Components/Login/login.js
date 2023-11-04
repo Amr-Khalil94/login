@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //formik
 import { useFormik } from "formik";
@@ -6,8 +6,11 @@ import { useFormik } from "formik";
 //yup validation schema
 import schema from "./loginValidation";
 
+//dom route V6
+import { useNavigate } from "react-router-dom";
+
 //redux
-import { login, loginThunk } from "../../Store/loginSlice"
+import { login, loginThunk, loginReducer } from "../../Store/loginSlice"
 import { useDispatch, useSelector } from "react-redux";
 
 //mui
@@ -21,7 +24,6 @@ import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -34,6 +36,9 @@ import AKLogo from "../../assets/AK.svg";
 const defaultTheme = createTheme();
 
 export default () => {
+  //dom route V6
+  const navigate = useNavigate()
+
   //redux
   const dispatch = useDispatch();
   const loginState = useSelector((state) => state.login);
@@ -45,10 +50,19 @@ export default () => {
     },
     // validationSchema: schema,
     onSubmit: (values) => {
-      dispatch(loginThunk({ email: values.email, password: values.password }))
+      dispatch(loginReducer({ email: values.email, password: values.password }))
       console.log(values);
     },
   });
+
+  //if loged in navigate to tasks table
+  useEffect(() => {
+    alert(loginState.logedIn)
+    if (loginState.logedIn) {
+      navigate('/tasks')
+    }
+
+  }, [loginState.logedIn])
 
   console.log(formik.errors);
 
@@ -73,6 +87,8 @@ export default () => {
             backgroundPosition: "center",
           }}
         />
+
+
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
