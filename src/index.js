@@ -28,10 +28,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //style
 import "./index.css";
 
-//component - Login
-import Login from "./Components/Login/login";
-import ForgetPss from "./Components/ForgetPss/forgetPss.js"
-import SignUp from './Components/SignUp/signup.js'
+
+
+import Login from "./Components/Auth/login";
+import ForgetPss from "./Components/Auth/forgetPss"
+import SignUp from "./Components/Auth/signup"
 
 //component - Main page
 import MainPage from "./Components/Login/login";
@@ -68,9 +69,9 @@ const routes = createBrowserRouter([
       <Outlet />
     </Grid>,
     children: [
-      { path: 'login', element: <h1>login</h1> },
+      { path: 'login', element: <Login /> },
       { path: 'forget-password', element: <h1>forget-password</h1> },
-      { path: 'signup', element: <h1>signup</h1> },
+      { path: 'signup', element: <SignUp /> },
     ]
   },
 

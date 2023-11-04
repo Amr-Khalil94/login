@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useFormik } from "formik";
 
 //yup validation schema
-import schema from "./loginValidation";
+import schema from "../Auth/loginValidation";
 
 //dom route V6
 import { useNavigate } from "react-router-dom";
