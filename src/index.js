@@ -16,9 +16,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 
 
-//persist
-import { PersistGate } from "redux-persist/integration/react";
-
 // Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
@@ -70,7 +67,7 @@ const routes = createBrowserRouter([
     </Grid>,
     children: [
       { path: 'login', element: <Login /> },
-      { path: 'forget-password', element: <h1>forget-password</h1> },
+      { path: 'forget-password', element: <ForgetPss /> },
       { path: 'signup', element: <SignUp /> },
     ]
   },

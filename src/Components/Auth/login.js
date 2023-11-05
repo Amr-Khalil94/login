@@ -4,10 +4,10 @@ import React, { useEffect } from "react";
 import { useFormik } from "formik";
 
 //yup validation schema
-import schema from "./loginValidation";
+import schema from "./authValidation";
 
 //dom route V6
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 //redux
 import { login, loginThunk, loginReducer } from "../../Store/loginSlice"
@@ -20,7 +20,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -40,6 +39,7 @@ export default () => {
     //redux
     const dispatch = useDispatch();
     const loginState = useSelector((state) => state.login);
+
     //formik
     const formik = useFormik({
         initialValues: {
@@ -56,7 +56,7 @@ export default () => {
 
     //if loged in navigate to tasks table
     useEffect(() => {
-        alert(loginState.logedIn)
+        // alert(loginState.logedIn)
         if (loginState.logedIn) {
             navigate('/tasks')
         }
@@ -128,14 +128,15 @@ export default () => {
 
                     <Grid container>
                         <Grid item xs>
-                            <Link href="#" variant="body2">
+                            <Link to='/auth/forget-password'>
                                 Forgot password?
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link href="#" variant="body2">
-                                {"Don't have an account? Sign Up"}
+                            <Link to='/auth/signup'>
+                                Don't have an account? Sign Up
                             </Link>
+
                         </Grid>
                     </Grid>
 

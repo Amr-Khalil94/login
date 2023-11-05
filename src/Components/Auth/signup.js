@@ -4,10 +4,10 @@ import React, { useEffect } from "react";
 import { useFormik } from "formik";
 
 //yup validation schema
-import schema from "./loginValidation";
+import schema from "./authValidation";
 
 //dom route V6
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 //redux
 import { login, loginThunk, loginReducer } from "../../Store/loginSlice"
@@ -20,7 +20,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -52,7 +51,7 @@ export default () => {
             password: "",
             retypePss: '',
         },
-        // validationSchema: schema,
+        validationSchema: schema,
         onSubmit: (values) => {
             // dispatch(loginReducer({ email: values.email, password: values.password }))
             console.log(values);
@@ -79,6 +78,57 @@ export default () => {
                 </Typography>
 
                 <form onSubmit={formik.handleSubmit} className="login-parent">
+
+                    {/*first Name*/}
+                    <TextField
+                        helperText={
+                            formik.touched.firstName &&
+                            formik.errors.firstName &&
+                            formik.errors.firstName
+                        }
+                        margin="normal"
+                        fullWidth
+                        id="firstName"
+                        label="First name"
+                        name="firstName"
+                        autoComplete="firstName"
+                        autoFocus
+                        onChange={formik.handleChange}
+                    />
+
+                    {/*last name*/}
+                    <TextField
+                        helperText={
+                            formik.touched.lastName &&
+                            formik.errors.lastName &&
+                            formik.errors.lastName
+                        }
+                        margin="normal"
+                        fullWidth
+                        id="lastName"
+                        label="Last name"
+                        name="lastName"
+                        autoComplete="lastName"
+                        onChange={formik.handleChange}
+                    />
+
+                    {/*Age*/}
+                    <TextField
+                        helperText={
+                            formik.touched.age &&
+                            formik.errors.age &&
+                            formik.errors.age
+                        }
+                        margin="normal"
+                        fullWidth
+                        id="age"
+                        label="Age"
+                        name="age"
+                        onChange={formik.handleChange}
+                        type="number"
+                    />
+
+                    {/*mail*/}
                     <TextField
                         helperText={
                             formik.touched.email &&
@@ -91,9 +141,10 @@ export default () => {
                         label="Email Address"
                         name="email"
                         autoComplete="email"
-                        autoFocus
                         onChange={formik.handleChange}
                     />
+
+                    {/*password*/}
                     <TextField
                         helperText={
                             formik.touched.password &&
@@ -110,6 +161,24 @@ export default () => {
                         onChange={formik.handleChange}
                     />
 
+
+                    {/*retype password*/}
+                    <TextField
+                        helperText={
+                            formik.touched.retypePss &&
+                            formik.errors.retypePss &&
+                            formik.errors.retypePss
+                        }
+                        margin="normal"
+                        fullWidth
+                        name="retypePss"
+                        label="Retype password"
+                        type="retypePss"
+                        id="retypePss"
+                        autoComplete="current-retypePss"
+                        onChange={formik.handleChange}
+                    />
+
                     <Button
                         type="submit"
                         fullWidth
@@ -121,7 +190,7 @@ export default () => {
 
                     <Grid container>
                         <Grid item xs>
-                            <Link href="#" variant="body2">
+                            <Link to="/auth/login">
                                 Back to login
                             </Link>
                         </Grid>
